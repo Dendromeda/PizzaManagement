@@ -8,15 +8,18 @@ package business.entites;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Jakob
  */
+@XmlRootElement
 @Entity
 public class Pizza implements Serializable {
 
@@ -27,11 +30,10 @@ public class Pizza implements Serializable {
     
     private String name;
     private double price;
-    
-    private List<String> toppings;
+   
+    private String description;
 
     public Pizza(){
-        toppings = new ArrayList();
     }
 
     public String getName() {
@@ -50,17 +52,14 @@ public class Pizza implements Serializable {
         this.price = price;
     }
 
-    public List<String> getToppings() {
-        return toppings;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setToppings(List<String> toppings) {
-        this.toppings = toppings;
+    public String getDescription() {
+        return description;
     }
-    
-    
-    
-    
+
     public int getId() {
         return id;
     }
@@ -91,7 +90,10 @@ public class Pizza implements Serializable {
 
     @Override
     public String toString() {
-        return "business.entites.Pizza[ id=" + id + " ]";
+        StringBuilder sb = new StringBuilder(name);
+        sb.append(" - ");
+        sb.append(description);
+        return sb.toString();
     }
     
 }
